@@ -1,0 +1,47 @@
+/*
+ * Install the Generative AI SDK
+ *
+ * $ npm install @google/generative-ai
+ *
+ * See the getting started guide for more information
+ * https://ai.google.dev/gemini-api/docs/get-started/node
+ */
+
+import { GoogleGenerativeAI } from "@google/generative-ai";
+  
+  const apiKey = import.meta.env.VITE_GOOGLE_GEMINI_AI_API_KEY;
+  const genAI = new GoogleGenerativeAI(apiKey);
+  
+  const model = genAI.getGenerativeModel({
+    model: "gemini-1.5-flash",
+  });
+  
+  const generationConfig = {
+    temperature: 1,
+    topP: 0.95,
+    topK: 64,
+    maxOutputTokens: 8192,
+    responseMimeType: "application/json",
+  };
+  
+  
+    export const chatSession = model.startChat({
+      generationConfig,
+
+      history: [
+        {
+          role: "user",
+          parts: [
+            {text: "Generate Travel Plan for Location: Las Vegas, for 3 Days for Couple with a Cheap budget, Give me a Hotels options list with HotelName, Hotel address, Price, hotel image url, geo coordinates, rating, descriptions and suggest itinerary with placeName, Place Details, Place Image Url, Geo Coordinates, ticket Pricing, rating, Time travel each of the location for 3 days with each day plan with best time to visit in JSON format\n"},
+          ],
+        },
+        {
+          role: "model",
+          parts: [
+            {text: "```json\n{\n  \"hotelOptions\": [\n    {\n      \"hotelName\": \"The D Las Vegas\",\n      \"hotelAddress\": \"301 Fremont Street, Las Vegas, NV 89101\",\n      \"price\": \"$50-$100 per night\",\n      \"hotelImageUrl\": \"https://www.thelinq.com/content/dam/linq/images/the-linq-hotel/the-linq-hotel-exterior.jpg\",\n      \"geoCoordinates\": \"36.1699, -115.1423\",\n      \"rating\": 4.0,\n      \"description\": \"A budget-friendly hotel located in the heart of Fremont Street, offering a vibrant atmosphere, a casino, and a variety of dining options.\"\n    },\n    {\n      \"hotelName\": \"Golden Nugget Las Vegas\",\n      \"hotelAddress\": \"129 E Fremont St, Las Vegas, NV 89101\",\n      \"price\": \"$70-$150 per night\",\n      \"hotelImageUrl\": \"https://www.goldennugget.com/content/dam/gnl/images/hotel/exterior.jpg\",\n      \"geoCoordinates\": \"36.1693, -115.1436\",\n      \"rating\": 4.5,\n      \"description\": \"A historic and glamorous hotel with a large casino, a shark tank, and multiple dining and entertainment options.\"\n    },\n    {\n      \"hotelName\": \"Circus Circus Hotel & Casino\",\n      \"hotelAddress\": \"2880 S Las Vegas Blvd, Las Vegas, NV 89109\",\n      \"price\": \"$40-$80 per night\",\n      \"hotelImageUrl\": \"https://www.circuscircus.com/content/dam/circuscircus/images/hotel/circus-circus-exterior.jpg\",\n      \"geoCoordinates\": \"36.1125, -115.1716\",\n      \"rating\": 3.5,\n      \"description\": \"A family-friendly hotel with a circus theme, featuring a midway, a casino, and a variety of entertainment options.\"\n    }\n  ],\n  \"itinerary\": [\n    {\n      \"day\": 1,\n      \"plan\": [\n        {\n          \"placeName\": \"Fremont Street Experience\",\n          \"placeDetails\": \"A vibrant pedestrian mall with live entertainment, street performers, and a massive canopy with light shows.\",\n          \"placeImageUrl\": \"https://www.fremontstreetexperience.com/images/gallery/Fremont-Street-Experience-1.jpg\",\n          \"geoCoordinates\": \"36.1698, -115.1423\",\n          \"ticketPricing\": \"Free\",\n          \"rating\": 4.5,\n          \"timeTravel\": \"Evening (7:00 PM - 10:00 PM)\"\n        },\n        {\n          \"placeName\": \"The Neon Museum\",\n          \"placeDetails\": \"A museum dedicated to preserving and displaying historic Las Vegas neon signs.\",\n          \"placeImageUrl\": \"https://www.neonmuseum.org/images/general/neon_museum_sign_small.jpg\",\n          \"geoCoordinates\": \"36.1723, -115.1456\",\n          \"ticketPricing\": \"$20-$30\",\n          \"rating\": 4.0,\n          \"timeTravel\": \"Afternoon (2:00 PM - 4:00 PM)\"\n        },\n        {\n          \"placeName\": \"Binion's Gambling Hall\",\n          \"placeDetails\": \"A historic casino with a famous poker room and a wide range of table games.\",\n          \"placeImageUrl\": \"https://www.binions.com/media/images/binions-hotel-casino-las-vegas-header.jpg\",\n          \"geoCoordinates\": \"36.1698, -115.1424\",\n          \"ticketPricing\": \"Free\",\n          \"rating\": 4.0,\n          \"timeTravel\": \"Late evening (10:00 PM - 12:00 AM)\"\n        }\n      ]\n    },\n    {\n      \"day\": 2,\n      \"plan\": [\n        {\n          \"placeName\": \"The Strip\",\n          \"placeDetails\": \"The iconic Las Vegas Boulevard, lined with world-class casinos, hotels, and entertainment venues.\",\n          \"placeImageUrl\": \"https://www.visitlasvegas.com/sites/default/files/styles/large_thumbnail/public/images/featured/2019-02/vegas-strip-wide-night.jpg\",\n          \"geoCoordinates\": \"36.1095, -115.1729\",\n          \"ticketPricing\": \"Free\",\n          \"rating\": 5.0,\n          \"timeTravel\": \"Daytime (10:00 AM - 4:00 PM)\"\n        },\n        {\n          \"placeName\": \"Bellagio Fountains\",\n          \"placeDetails\": \"A spectacular water and light show that takes place every 15 minutes in front of the Bellagio hotel.\",\n          \"placeImageUrl\": \"https://www.bellagio.com/content/dam/bellagio/images/fountains-show/fountains-show-landscape.jpg\",\n          \"geoCoordinates\": \"36.1144, -115.1724\",\n          \"ticketPricing\": \"Free\",\n          \"rating\": 4.5,\n          \"timeTravel\": \"Evening (7:00 PM - 9:00 PM)\"\n        },\n        {\n          \"placeName\": \"The LINQ Promenade\",\n          \"placeDetails\": \"A lively outdoor shopping and dining area with the iconic High Roller observation wheel.\",\n          \"placeImageUrl\": \"https://www.thelinq.com/content/dam/linq/images/the-linq-promenade/promenade-night-shot.jpg\",\n          \"geoCoordinates\": \"36.1138, -115.1719\",\n          \"ticketPricing\": \"$20-$30\",\n          \"rating\": 4.0,\n          \"timeTravel\": \"Late evening (9:00 PM - 11:00 PM)\"\n        }\n      ]\n    },\n    {\n      \"day\": 3,\n      \"plan\": [\n        {\n          \"placeName\": \"Red Rock Canyon National Conservation Area\",\n          \"placeDetails\": \"A scenic desert landscape with hiking trails, rock formations, and stunning views.\",\n          \"placeImageUrl\": \"https://www.nps.gov/redr/planyourvisit/images/redrock-canyon-national-conservation-area-desert-landscape.jpg\",\n          \"geoCoordinates\": \"36.1824, -115.2491\",\n          \"ticketPricing\": \"$15\",\n          \"rating\": 4.5,\n          \"timeTravel\": \"Morning (9:00 AM - 12:00 PM)\"\n        },\n        {\n          \"placeName\": \"Hoover Dam\",\n          \"placeDetails\": \"A massive engineering marvel and a popular tourist destination.\",\n          \"placeImageUrl\": \"https://www.nps.gov/hove/planyourvisit/images/hoover-dam-overview.jpg\",\n          \"geoCoordinates\": \"36.0027, -114.9966\",\n          \"ticketPricing\": \"$30-$40\",\n          \"rating\": 4.0,\n          \"timeTravel\": \"Afternoon (2:00 PM - 5:00 PM)\"\n        },\n        {\n          \"placeName\": \"The Cosmopolitan of Las Vegas\",\n          \"placeDetails\": \"A luxurious hotel with a rooftop pool, dining options, and a unique Chandelier Bar.\",\n          \"placeImageUrl\": \"https://www.cosmopolitanlasvegas.com/content/dam/cosmopolitan/images/hotel/exterior/cosmopolitan-exterior-2.jpg\",\n          \"geoCoordinates\": \"36.1116, -115.1721\",\n          \"ticketPricing\": \"Free\",\n          \"rating\": 4.5,\n          \"timeTravel\": \"Evening (8:00 PM - 10:00 PM)\"\n        }\n      ]\n    }\n  ]\n}\n```\n\n**Explanation:**\n\n* **hotelOptions**: This section provides details about three budget-friendly hotels in Las Vegas: The D, Golden Nugget, and Circus Circus. Each entry includes the hotel name, address, price range, image URL, coordinates, rating, and a brief description.\n* **itinerary**: This section outlines a suggested 3-day itinerary for a couple traveling on a budget. Each day has a plan with multiple places to visit, providing details about the place name, description, image URL, coordinates, ticket pricing, rating, and recommended time to visit.\n* **Day 1**: Focuses on the historic Fremont Street Experience, the Neon Museum, and a late-night visit to Binion's Gambling Hall.\n* **Day 2**: Features a daytime stroll along the Strip, an evening visit to the Bellagio Fountains, and a late-night experience at the LINQ Promenade.\n* **Day 3**: Includes a scenic trip to Red Rock Canyon National Conservation Area in the morning, a visit to the Hoover Dam in the afternoon, and an evening at the Cosmopolitan of Las Vegas.\n\n**Tips for a Cheap Budget:**\n\n* **Free Activities**:  Take advantage of free attractions like the Fremont Street Experience, Bellagio Fountains, and the Strip itself.\n* **Food**: Look for affordable restaurants off the Strip, consider happy hour specials, and pack snacks and water.\n* **Transportation**: Utilize the free monorail system along the Strip, walk, or use ride-sharing services for budget-friendly transportation.\n* **Explore the Free Entertainment**: Check out the free shows at various casinos, such as the Mirage volcano or the Bellagio Conservatory.\n\nThis itinerary is just a starting point; you can customize it based on your interests and preferences. \n"},
+          ],
+        },
+      ],
+    });
+  
+   
